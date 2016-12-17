@@ -96,11 +96,12 @@ public class InvocationTest {
     @Test
     public void testNull() {
         Logger logger = LoggerFactory.getLogger("testNull");
-        logger.trace(null);
-        logger.debug(null);
-        logger.info(null);
-        logger.warn(null);
-        logger.error(null);
+        String nullString = null;
+        logger.trace(nullString);
+        logger.debug(nullString);
+        logger.info(nullString);
+        logger.warn(nullString);
+        logger.error(nullString);
 
         Exception e = new Exception("This is a test exception.");
         logger.debug(null, e);

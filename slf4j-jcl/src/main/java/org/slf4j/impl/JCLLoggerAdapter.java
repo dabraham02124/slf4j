@@ -25,11 +25,14 @@
 
 package org.slf4j.impl;
 
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
+
 import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
+import org.slf4j.jdk8classes.Supplier;
 
 /**
  * A wrapper over {@link org.apache.commons.logging.Log
@@ -68,6 +71,10 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
      */
     public void trace(String msg) {
         log.trace(msg);
+    }
+
+    public void trace(Supplier<String> msg) {
+        log.trace(msg.get());
     }
 
     /**
@@ -133,6 +140,13 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
         }
     }
 
+    public void trace(String format, Supplier<Object>... arguments) {
+        if (log.isTraceEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
+            log.trace(ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Delegates to the {@link Log#trace(java.lang.Object, java.lang.Throwable)} method of 
      * the underlying {@link Log} instance.
@@ -164,6 +178,10 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
      */
     public void debug(String msg) {
         log.debug(msg);
+    }
+
+    public void debug(Supplier<String> msg) {
+        log.debug(msg.get());
     }
 
     /**
@@ -229,6 +247,13 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
         }
     }
 
+    public void debug(String format, Supplier<Object>... arguments) {
+        if (log.isDebugEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
+            log.debug(ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Delegates to the {@link Log#debug(java.lang.Object, java.lang.Throwable)} method of 
      * the underlying {@link Log} instance.
@@ -258,6 +283,10 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
      */
     public void info(String msg) {
         log.info(msg);
+    }
+
+    public void info(Supplier<String> msg) {
+        log.info(msg.get());
     }
 
     /**
@@ -325,6 +354,13 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
         }
     }
 
+    public void info(String format, Supplier<Object>... arguments) {
+        if (log.isInfoEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
+            log.info(ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Delegates to the {@link Log#info(java.lang.Object, java.lang.Throwable)} method of 
      * the underlying {@link Log} instance.
@@ -354,6 +390,10 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
      */
     public void warn(String msg) {
         log.warn(msg);
+    }
+
+    public void warn(Supplier<String> msg) {
+        log.warn(msg.get());
     }
 
     /**
@@ -419,6 +459,13 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
         }
     }
 
+    public void warn(String format, Supplier<Object>... arguments) {
+        if (log.isWarnEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
+            log.warn(ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Delegates to the {@link Log#warn(java.lang.Object, java.lang.Throwable)} method of 
      * the underlying {@link Log} instance.
@@ -449,6 +496,10 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
      */
     public void error(String msg) {
         log.error(msg);
+    }
+
+    public void error(Supplier<String> msg) {
+        log.error(msg.get());
     }
 
     /**
@@ -510,6 +561,13 @@ public final class JCLLoggerAdapter extends MarkerIgnoringBase {
     public void error(String format, Object... arguments) {
         if (log.isErrorEnabled()) {
             FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+            log.error(ft.getMessage(), ft.getThrowable());
+        }
+    }
+
+    public void error(String format, Supplier<Object>... arguments) {
+        if (log.isErrorEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
             log.error(ft.getMessage(), ft.getThrowable());
         }
     }

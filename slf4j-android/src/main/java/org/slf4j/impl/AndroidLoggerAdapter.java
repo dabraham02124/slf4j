@@ -24,10 +24,13 @@
  */
 package org.slf4j.impl;
 
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
+
 import android.util.Log;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
+import org.slf4j.jdk8classes.Supplier;
 
 /**
  * <p>A simple implementation that delegates all log requests to the Google Android
@@ -108,6 +111,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
         log(Log.VERBOSE, msg, null);
     }
 
+    public void trace(Supplier<String> msg) {
+        log(Log.VERBOSE, msg.get(), null);
+    }
+
     /**
      * Log a message at level VERBOSE according to the specified format and
      * argument.
@@ -164,6 +171,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
         formatAndLog(Log.VERBOSE, format, argArray);
     }
 
+    public void trace(String format, Supplier<Object>... argArray) {
+        formatAndLog(Log.VERBOSE, format, suppliersToObjects(argArray));
+    }
+
     /**
      * Log an exception (throwable) at level VERBOSE with an accompanying message.
      *
@@ -193,6 +204,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     public void debug(String msg) {
         log(Log.DEBUG, msg, null);
+    }
+
+    public void debug(Supplier<String> msg) {
+        log(Log.DEBUG, msg.get(), null);
     }
 
     /**
@@ -250,6 +265,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
         formatAndLog(Log.DEBUG, format, argArray);
     }
 
+    public void debug(String format, Supplier<Object>... argArray) {
+        formatAndLog(Log.DEBUG, format, suppliersToObjects(argArray));
+    }
+
     /**
      * Log an exception (throwable) at level DEBUG with an accompanying message.
      *
@@ -279,6 +298,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     public void info(String msg) {
         log(Log.INFO, msg, null);
+    }
+
+    public void info(Supplier<String> msg) {
+        log(Log.INFO, msg.get(), null);
     }
 
     /**
@@ -336,6 +359,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
         formatAndLog(Log.INFO, format, argArray);
     }
 
+    public void info(String format, Supplier<Object>... argArray) {
+        formatAndLog(Log.INFO, format, suppliersToObjects(argArray));
+    }
+
     /**
      * Log an exception (throwable) at the INFO level with an accompanying
      * message.
@@ -367,6 +394,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     public void warn(String msg) {
         log(Log.WARN, msg, null);
+    }
+
+    public void warn(Supplier<String> msg) {
+        log(Log.WARN, msg.get(), null);
     }
 
     /**
@@ -425,6 +456,11 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
         formatAndLog(Log.WARN, format, argArray);
     }
 
+
+    public void warn(String format, Supplier<Object>... argArray) {
+        formatAndLog(Log.WARN, format, suppliersToObjects(argArray));
+    }
+
     /**
      * Log an exception (throwable) at the WARN level with an accompanying
      * message.
@@ -455,6 +491,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     public void error(String msg) {
         log(Log.ERROR, msg, null);
+    }
+
+    public void error(Supplier<String> msg) {
+        log(Log.ERROR, msg.get(), null);
     }
 
     /**
@@ -511,6 +551,10 @@ class AndroidLoggerAdapter extends MarkerIgnoringBase {
      */
     public void error(String format, Object... argArray) {
         formatAndLog(Log.ERROR, format, argArray);
+    }
+
+    public void error(String format, Supplier<Object>... argArray) {
+        formatAndLog(Log.ERROR, format, suppliersToObjects(argArray));
     }
 
     /**

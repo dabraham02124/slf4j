@@ -24,6 +24,8 @@
  */
 package org.slf4j.impl;
 
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -41,6 +43,7 @@ import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.helpers.Util;
+import org.slf4j.jdk8classes.Supplier;
 import org.slf4j.spi.LocationAwareLogger;
 
 /**
@@ -462,6 +465,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
     }
 
     /**
+     * A simple implementation which logs messages of level TRACE according
+     * to the format outlined above.
+     */
+    public void trace(Supplier<String> msg) {
+        log(LOG_LEVEL_TRACE, msg.get(), null);
+    }
+
+    /**
      * Perform single parameter substitution before logging the message of level
      * TRACE according to the format outlined above.
      */
@@ -485,6 +496,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
         formatAndLog(LOG_LEVEL_TRACE, format, argArray);
     }
 
+    /**
+     * Perform double parameter substitution before logging the message of level
+     * TRACE according to the format outlined above.
+     */
+    public void trace(String format, Supplier<Object>... argArray) {
+        formatAndLog(LOG_LEVEL_TRACE, format, suppliersToObjects(argArray));
+    }
+
     /** Log a message of level TRACE, including an exception. */
     public void trace(String msg, Throwable t) {
         log(LOG_LEVEL_TRACE, msg, t);
@@ -501,6 +520,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
      */
     public void debug(String msg) {
         log(LOG_LEVEL_DEBUG, msg, null);
+    }
+
+    /**
+     * A simple implementation which logs messages of level DEBUG according
+     * to the format outlined above.
+     */
+    public void debug(Supplier<String> msg) {
+        log(LOG_LEVEL_DEBUG, msg.get(), null);
     }
 
     /**
@@ -527,6 +554,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
         formatAndLog(LOG_LEVEL_DEBUG, format, argArray);
     }
 
+    /**
+     * Perform double parameter substitution before logging the message of level
+     * DEBUG according to the format outlined above.
+     */
+    public void debug(String format, Supplier<Object>... argArray) {
+        formatAndLog(LOG_LEVEL_DEBUG, format, suppliersToObjects(argArray));
+    }
+
     /** Log a message of level DEBUG, including an exception. */
     public void debug(String msg, Throwable t) {
         log(LOG_LEVEL_DEBUG, msg, t);
@@ -543,6 +578,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
      */
     public void info(String msg) {
         log(LOG_LEVEL_INFO, msg, null);
+    }
+
+    /**
+     * A simple implementation which logs messages of level INFO according
+     * to the format outlined above.
+     */
+    public void info(Supplier<String> msg) {
+        log(LOG_LEVEL_INFO, msg.get(), null);
     }
 
     /**
@@ -569,6 +612,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
         formatAndLog(LOG_LEVEL_INFO, format, argArray);
     }
 
+    /**
+     * Perform double parameter substitution before logging the message of level
+     * INFO according to the format outlined above.
+     */
+    public void info(String format, Supplier<Object>... argArray) {
+        formatAndLog(LOG_LEVEL_INFO, format, suppliersToObjects(argArray));
+    }
+
     /** Log a message of level INFO, including an exception. */
     public void info(String msg, Throwable t) {
         log(LOG_LEVEL_INFO, msg, t);
@@ -585,6 +636,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
      */
     public void warn(String msg) {
         log(LOG_LEVEL_WARN, msg, null);
+    }
+
+    /**
+     * A simple implementation which always logs messages of level WARN according
+     * to the format outlined above.
+     */
+    public void warn(Supplier<String> msg) {
+        log(LOG_LEVEL_WARN, msg.get(), null);
     }
 
     /**
@@ -611,6 +670,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
         formatAndLog(LOG_LEVEL_WARN, format, argArray);
     }
 
+    /**
+     * Perform double parameter substitution before logging the message of level
+     * WARN according to the format outlined above.
+     */
+    public void warn(String format, Supplier<Object>... argArray) {
+        formatAndLog(LOG_LEVEL_WARN, format, suppliersToObjects(argArray));
+    }
+
     /** Log a message of level WARN, including an exception. */
     public void warn(String msg, Throwable t) {
         log(LOG_LEVEL_WARN, msg, t);
@@ -627,6 +694,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
      */
     public void error(String msg) {
         log(LOG_LEVEL_ERROR, msg, null);
+    }
+
+    /**
+     * A simple implementation which always logs messages of level ERROR according
+     * to the format outlined above.
+     */
+    public void error(Supplier<String> msg) {
+        log(LOG_LEVEL_ERROR, msg.get(), null);
     }
 
     /**
@@ -651,6 +726,14 @@ public class SimpleLogger extends MarkerIgnoringBase {
      */
     public void error(String format, Object... argArray) {
         formatAndLog(LOG_LEVEL_ERROR, format, argArray);
+    }
+
+    /**
+     * Perform double parameter substitution before logging the message of level
+     * ERROR according to the format outlined above.
+     */
+    public void error(String format, Supplier<Object>... argArray) {
+        formatAndLog(LOG_LEVEL_ERROR, format, suppliersToObjects(argArray));
     }
 
     /** Log a message of level ERROR, including an exception. */

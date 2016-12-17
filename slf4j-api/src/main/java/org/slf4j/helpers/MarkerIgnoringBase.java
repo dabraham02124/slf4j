@@ -24,8 +24,11 @@
  */
 package org.slf4j.helpers;
 
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
+
 import org.slf4j.Logger;
 import org.slf4j.Marker;
+import org.slf4j.jdk8classes.Supplier;
 
 /**
  * This class serves as base for adapters or native implementations of logging systems 
@@ -47,6 +50,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
         trace(msg);
     }
 
+    public void trace(Marker marker, Supplier<String> msg) {
+        trace(msg.get());
+    }
+
     public void trace(Marker marker, String format, Object arg) {
         trace(format, arg);
     }
@@ -57,6 +64,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
 
     public void trace(Marker marker, String format, Object... arguments) {
         trace(format, arguments);
+    }
+
+    public void trace(Marker marker, String format, Supplier<Object>... arguments) {
+        trace(format, suppliersToObjects(arguments));
     }
 
     public void trace(Marker marker, String msg, Throwable t) {
@@ -71,6 +82,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
         debug(msg);
     }
 
+    public void debug(Marker marker, Supplier<String> msg) {
+        debug(msg.get());
+    }
+
     public void debug(Marker marker, String format, Object arg) {
         debug(format, arg);
     }
@@ -81,6 +96,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
 
     public void debug(Marker marker, String format, Object... arguments) {
         debug(format, arguments);
+    }
+
+    public void debug(Marker marker, String format, Supplier<Object>... arguments) {
+        debug(format, suppliersToObjects(arguments));
     }
 
     public void debug(Marker marker, String msg, Throwable t) {
@@ -95,6 +114,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
         info(msg);
     }
 
+    public void info(Marker marker, Supplier<String> msg) {
+        info(msg.get());
+    }
+
     public void info(Marker marker, String format, Object arg) {
         info(format, arg);
     }
@@ -105,6 +128,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
 
     public void info(Marker marker, String format, Object... arguments) {
         info(format, arguments);
+    }
+
+    public void info(Marker marker, String format, Supplier<Object>... arguments) {
+        info(format, suppliersToObjects(arguments));
     }
 
     public void info(Marker marker, String msg, Throwable t) {
@@ -119,6 +146,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
         warn(msg);
     }
 
+    public void warn(Marker marker, Supplier<String> msg) {
+        warn(msg.get());
+    }
+
     public void warn(Marker marker, String format, Object arg) {
         warn(format, arg);
     }
@@ -129,6 +160,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
 
     public void warn(Marker marker, String format, Object... arguments) {
         warn(format, arguments);
+    }
+    
+    public void warn(Marker marker, String format, Supplier<Object>... arguments) {
+        warn(format, suppliersToObjects(arguments));
     }
 
     public void warn(Marker marker, String msg, Throwable t) {
@@ -143,6 +178,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
         error(msg);
     }
 
+    public void error(Marker marker, Supplier<String> msg) {
+        error(msg.get());
+    }
+
     public void error(Marker marker, String format, Object arg) {
         error(format, arg);
     }
@@ -153,6 +192,10 @@ public abstract class MarkerIgnoringBase extends NamedLoggerBase implements Logg
 
     public void error(Marker marker, String format, Object... arguments) {
         error(format, arguments);
+    }
+
+    public void error(Marker marker, String format, Supplier<Object>... arguments) {
+        error(format, suppliersToObjects(arguments));
     }
 
     public void error(Marker marker, String msg, Throwable t) {

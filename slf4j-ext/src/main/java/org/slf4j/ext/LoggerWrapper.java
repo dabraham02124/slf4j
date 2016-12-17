@@ -24,10 +24,13 @@
  */
 package org.slf4j.ext;
 
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
+
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
+import org.slf4j.jdk8classes.Supplier;
 import org.slf4j.spi.LocationAwareLogger;
 
 /**
@@ -90,6 +93,17 @@ public class LoggerWrapper implements Logger {
         }
     }
 
+    public void trace(Supplier<String> msg) {
+        if (!logger.isTraceEnabled())
+            return;
+
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.TRACE_INT, msg.get(), null, null);
+        } else {
+            logger.trace(msg);
+        }
+    }
+
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
@@ -135,6 +149,19 @@ public class LoggerWrapper implements Logger {
         }
     }
 
+    public void trace(String format, Supplier<Object>... args) {
+        if (!logger.isTraceEnabled())
+            return;
+
+        Object[] args2 = suppliersToObjects(args); 
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args2).getMessage();
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.TRACE_INT, formattedMessage, args2, null);
+        } else {
+            logger.trace(format, args2);
+        }
+    }
+
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
@@ -159,6 +186,16 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.TRACE_INT, msg, null, null);
         } else {
             logger.trace(marker, msg);
+        }
+    }
+
+    public void trace(Marker marker, Supplier<String> msg) {
+        if (!logger.isTraceEnabled(marker))
+            return;
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.TRACE_INT, msg.get(), null, null);
+        } else {
+            logger.trace(marker, msg.get());
         }
     }
 
@@ -204,6 +241,19 @@ public class LoggerWrapper implements Logger {
         }
     }
 
+    public void trace(Marker marker, String format, Supplier<Object>... args) {
+        if (!logger.isTraceEnabled(marker))
+            return;
+        
+        Object[] args2 = suppliersToObjects(args);
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args2).getMessage();
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.TRACE_INT, formattedMessage, args2, null);
+        } else {
+            logger.trace(marker, format, args2);
+        }
+    }
+
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
@@ -242,6 +292,17 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.DEBUG_INT, msg, null, null);
         } else {
             logger.debug(msg);
+        }
+    }
+
+    public void debug(Supplier<String> msg) {
+        if (!logger.isDebugEnabled())
+            return;
+
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.DEBUG_INT, msg.get(), null, null);
+        } else {
+            logger.debug(msg.get());
         }
     }
 
@@ -290,6 +351,19 @@ public class LoggerWrapper implements Logger {
         }
     }
 
+    public void debug(String format, Supplier<Object>... argArray) {
+        if (!logger.isDebugEnabled())
+            return;
+
+        Object[] args2 = suppliersToObjects(argArray);
+        if (instanceofLAL) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, args2);
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.DEBUG_INT, ft.getMessage(), ft.getArgArray(), ft.getThrowable());
+        } else {
+            logger.debug(format, args2);
+        }
+    }
+
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
@@ -314,6 +388,19 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.DEBUG_INT, msg, null, null);
         } else {
             logger.debug(marker, msg);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void debug(Marker marker, Supplier<String> msg) {
+        if (!logger.isDebugEnabled(marker))
+            return;
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.DEBUG_INT, msg.get(), null, null);
+        } else {
+            logger.debug(marker, msg.get());
         }
     }
 
@@ -351,12 +438,28 @@ public class LoggerWrapper implements Logger {
     public void debug(Marker marker, String format, Object... argArray) {
         if (!logger.isDebugEnabled(marker))
             return;
-        if (instanceofLAL) {
 
+        if (instanceofLAL) {
             FormattingTuple ft = MessageFormatter.arrayFormat(format, argArray);
             ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.DEBUG_INT, ft.getMessage(), argArray, ft.getThrowable());
         } else {
             logger.debug(marker, format, argArray);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void debug(Marker marker, String format, Supplier<Object>... argArray) {
+        if (!logger.isDebugEnabled(marker))
+            return;
+        
+        Object[] args2 = suppliersToObjects(argArray);
+        if (instanceofLAL) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, args2);
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.DEBUG_INT, ft.getMessage(), args2, ft.getThrowable());
+        } else {
+            logger.debug(marker, format, args2);
         }
     }
 
@@ -398,6 +501,20 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.INFO_INT, msg, null, null);
         } else {
             logger.info(msg);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void info(Supplier<String> msg) {
+        if (!logger.isInfoEnabled())
+            return;
+
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.INFO_INT, msg.get(), null, null);
+        } else {
+            logger.info(msg.get());
         }
     }
 
@@ -449,6 +566,22 @@ public class LoggerWrapper implements Logger {
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
+    public void info(String format, Supplier<Object>... args) {
+        if (!logger.isInfoEnabled())
+            return;
+        
+        Object[] args2 = suppliersToObjects(args);
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args2).getMessage();
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.INFO_INT, formattedMessage, args2, null);
+        } else {
+            logger.info(format, args2);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
     public void info(String msg, Throwable t) {
         if (!logger.isInfoEnabled())
             return;
@@ -470,6 +603,20 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.INFO_INT, msg, null, null);
         } else {
             logger.info(marker, msg);
+        }
+    }
+
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void info(Marker marker, Supplier<String> msg) {
+        if (!logger.isInfoEnabled(marker))
+            return;
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.INFO_INT, msg.get(), null, null);
+        } else {
+            logger.info(marker, msg.get());
         }
     }
 
@@ -518,6 +665,22 @@ public class LoggerWrapper implements Logger {
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
+    public void info(Marker marker, String format, Supplier<Object>... args) {
+        if (!logger.isInfoEnabled(marker))
+            return;
+        
+        Object[] args2 = suppliersToObjects(args);
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args2).getMessage();
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.INFO_INT, formattedMessage, args2, null);
+        } else {
+            logger.info(marker, format, args2);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
     public void info(Marker marker, String msg, Throwable t) {
         if (!logger.isInfoEnabled(marker))
             return;
@@ -550,6 +713,20 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.WARN_INT, msg, null, null);
         } else {
             logger.warn(msg);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void warn(Supplier<String> msg) {
+        if (!logger.isWarnEnabled())
+            return;
+
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.WARN_INT, msg.get(), null, null);
+        } else {
+            logger.warn(msg.get());
         }
     }
 
@@ -601,6 +778,22 @@ public class LoggerWrapper implements Logger {
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
+    public void warn(String format, Supplier<Object>... args) {
+        if (!logger.isWarnEnabled())
+            return;
+
+        Object[] args2 = suppliersToObjects(args);
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args2).getMessage();
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.WARN_INT, formattedMessage, args2, null);
+        } else {
+            logger.warn(format, args2);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
     public void warn(String msg, Throwable t) {
         if (!logger.isWarnEnabled())
             return;
@@ -622,6 +815,19 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.WARN_INT, msg, null, null);
         } else {
             logger.warn(marker, msg);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void warn(Marker marker, Supplier<String> msg) {
+        if (!logger.isWarnEnabled(marker))
+            return;
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.WARN_INT, msg.get(), null, null);
+        } else {
+            logger.warn(marker, msg.get());
         }
     }
 
@@ -670,6 +876,22 @@ public class LoggerWrapper implements Logger {
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
+    public void warn(Marker marker, String format, Supplier<Object>... args) {
+        if (!logger.isWarnEnabled(marker))
+            return;
+        
+        Object[] args2 = suppliersToObjects(args);
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args2).getMessage();
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.WARN_INT, formattedMessage, args2, null);
+        } else {
+            logger.warn(marker, format, args2);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
     public void warn(Marker marker, String msg, Throwable t) {
         if (!logger.isWarnEnabled(marker))
             return;
@@ -705,6 +927,20 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.ERROR_INT, msg, null, null);
         } else {
             logger.error(msg);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void error(Supplier<String> msg) {
+        if (!logger.isErrorEnabled())
+            return;
+
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.ERROR_INT, msg.get(), null, null);
+        } else {
+            logger.error(msg.get());
         }
     }
 
@@ -756,6 +992,22 @@ public class LoggerWrapper implements Logger {
     /**
      * Delegate to the appropriate method of the underlying logger.
      */
+    public void error(String format, Supplier<Object>... args) {
+        if (!logger.isErrorEnabled())
+            return;
+
+        Object[] args2 = suppliersToObjects(args);
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args2).getMessage();
+            ((LocationAwareLogger) logger).log(null, fqcn, LocationAwareLogger.ERROR_INT, formattedMessage, args2, null);
+        } else {
+            logger.error(format, args2);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
     public void error(String msg, Throwable t) {
         if (!logger.isErrorEnabled())
             return;
@@ -777,6 +1029,19 @@ public class LoggerWrapper implements Logger {
             ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.ERROR_INT, msg, null, null);
         } else {
             logger.error(marker, msg);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void error(Marker marker, Supplier<String> msg) {
+        if (!logger.isErrorEnabled(marker))
+            return;
+        if (instanceofLAL) {
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.ERROR_INT, msg.get(), null, null);
+        } else {
+            logger.error(marker, msg.get());
         }
     }
 
@@ -812,6 +1077,20 @@ public class LoggerWrapper implements Logger {
      * Delegate to the appropriate method of the underlying logger.
      */
     public void error(Marker marker, String format, Object... args) {
+        if (!logger.isErrorEnabled(marker))
+            return;
+        if (instanceofLAL) {
+            String formattedMessage = MessageFormatter.arrayFormat(format, args).getMessage();
+            ((LocationAwareLogger) logger).log(marker, fqcn, LocationAwareLogger.ERROR_INT, formattedMessage, args, null);
+        } else {
+            logger.error(marker, format, args);
+        }
+    }
+
+    /**
+     * Delegate to the appropriate method of the underlying logger.
+     */
+    public void error(Marker marker, String format, Supplier<Object>... args) {
         if (!logger.isErrorEnabled(marker))
             return;
         if (instanceofLAL) {

@@ -1,10 +1,13 @@
 package org.slf4j.event;
 
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
+
 import java.util.Queue;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.SubstituteLogger;
+import org.slf4j.jdk8classes.Supplier;
 
 public class EventRecodingLogger implements Logger {
 
@@ -49,6 +52,10 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.TRACE, msg, null, null);
     }
 
+    public void trace(Supplier<String> supplier) {
+        recordEvent(Level.TRACE, supplier.get(), null, null);
+    }
+
     public void trace(String format, Object arg) {
         recordEvent(Level.TRACE, format, new Object[] { arg }, null);
     }
@@ -61,6 +68,10 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.TRACE, format, arguments, null);
     }
 
+    public void trace(String format, Supplier<Object>... arguments) {
+        recordEvent(Level.TRACE, format, suppliersToObjects(arguments), null);
+    }
+
     public void trace(String msg, Throwable t) {
         recordEvent(Level.TRACE, msg, null, t);
     }
@@ -71,7 +82,10 @@ public class EventRecodingLogger implements Logger {
 
     public void trace(Marker marker, String msg) {
         recordEvent(Level.TRACE, marker, msg, null, null);
+    }
 
+    public void trace(Marker marker, Supplier<String> msg) {
+        recordEvent(Level.TRACE, marker, msg.get(), null, null);
     }
 
     public void trace(Marker marker, String format, Object arg) {
@@ -84,7 +98,10 @@ public class EventRecodingLogger implements Logger {
 
     public void trace(Marker marker, String format, Object... argArray) {
         recordEvent(Level.TRACE, marker, format, argArray, null);
+    }
 
+    public void trace(Marker marker, String format, Supplier<Object>... argArray) {
+        recordEvent(Level.TRACE, marker, format, suppliersToObjects(argArray), null);
     }
 
     public void trace(Marker marker, String msg, Throwable t) {
@@ -99,18 +116,24 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.TRACE, msg, null, null);
     }
 
+    public void debug(Supplier<String> msg) {
+        recordEvent(Level.TRACE, msg.get(), null, null);
+    }
+
     public void debug(String format, Object arg) {
         recordEvent(Level.DEBUG, format, new Object[] { arg }, null);
-
     }
 
     public void debug(String format, Object arg1, Object arg2) {
         recordEvent(Level.DEBUG, format, new Object[] { arg1, arg2 }, null);
-
     }
 
     public void debug(String format, Object... arguments) {
         recordEvent(Level.DEBUG, format, arguments, null);
+    }
+
+    public void debug(String format, Supplier<Object>... arguments) {
+        recordEvent(Level.DEBUG, format, suppliersToObjects(arguments), null);
     }
 
     public void debug(String msg, Throwable t) {
@@ -125,6 +148,10 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.DEBUG, marker, msg, null, null);
     }
 
+    public void debug(Marker marker, Supplier<String> msg) {
+        recordEvent(Level.DEBUG, marker, msg.get(), null, null);
+    }
+
     public void debug(Marker marker, String format, Object arg) {
         recordEvent(Level.DEBUG, marker, format, new Object[] { arg }, null);
     }
@@ -135,6 +162,10 @@ public class EventRecodingLogger implements Logger {
 
     public void debug(Marker marker, String format, Object... arguments) {
         recordEvent(Level.DEBUG, marker, format, arguments, null);
+    }
+
+    public void debug(Marker marker, String format, Supplier<Object>... arguments) {
+        recordEvent(Level.DEBUG, marker, format, suppliersToObjects(arguments), null);
     }
 
     public void debug(Marker marker, String msg, Throwable t) {
@@ -149,6 +180,10 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.INFO, msg, null, null);
     }
 
+    public void info(Supplier<String> msg) {
+        recordEvent(Level.INFO, msg.get(), null, null);
+    }
+
     public void info(String format, Object arg) {
         recordEvent(Level.INFO, format, new Object[] { arg }, null);
     }
@@ -159,6 +194,10 @@ public class EventRecodingLogger implements Logger {
 
     public void info(String format, Object... arguments) {
         recordEvent(Level.INFO, format, arguments, null);
+    }
+
+    public void info(String format, Supplier<Object>... arguments) {
+        recordEvent(Level.INFO, format, suppliersToObjects(arguments), null);
     }
 
     public void info(String msg, Throwable t) {
@@ -173,6 +212,10 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.INFO, marker, msg, null, null);
     }
 
+    public void info(Marker marker, Supplier<String> msg) {
+        recordEvent(Level.INFO, marker, msg.get(), null, null);
+    }
+
     public void info(Marker marker, String format, Object arg) {
         recordEvent(Level.INFO, marker, format, new Object[] { arg }, null);
     }
@@ -183,6 +226,10 @@ public class EventRecodingLogger implements Logger {
 
     public void info(Marker marker, String format, Object... arguments) {
         recordEvent(Level.INFO, marker, format, arguments, null);
+    }
+
+    public void info(Marker marker, String format, Supplier<Object>... arguments) {
+        recordEvent(Level.INFO, marker, format, suppliersToObjects(arguments), null);
     }
 
     public void info(Marker marker, String msg, Throwable t) {
@@ -198,6 +245,10 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.WARN, msg, null, null);
     }
 
+    public void warn(Supplier<String> msg) {
+        recordEvent(Level.WARN, msg.get(), null, null);
+    }
+
     public void warn(String format, Object arg) {
         recordEvent(Level.WARN, format, new Object[] { arg }, null);
 
@@ -209,6 +260,10 @@ public class EventRecodingLogger implements Logger {
 
     public void warn(String format, Object... arguments) {
         recordEvent(Level.WARN, format, arguments, null);
+    }
+
+    public void warn(String format, Supplier<Object>... arguments) {
+        recordEvent(Level.WARN, format, suppliersToObjects(arguments), null);
     }
 
     public void warn(String msg, Throwable t) {
@@ -223,17 +278,24 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.WARN, msg, null, null);
     }
 
+    public void warn(Marker marker, Supplier<String> msg) {
+        recordEvent(Level.WARN, msg.get(), null, null);
+    }
+
     public void warn(Marker marker, String format, Object arg) {
         recordEvent(Level.WARN, format, new Object[] { arg }, null);
     }
 
     public void warn(Marker marker, String format, Object arg1, Object arg2) {
         recordEvent(Level.WARN, marker, format, new Object[] { arg1, arg2 }, null);
-
     }
 
     public void warn(Marker marker, String format, Object... arguments) {
         recordEvent(Level.WARN, marker, format, arguments, null);
+    }
+
+    public void warn(Marker marker, String format, Supplier<Object>... arguments) {
+        recordEvent(Level.WARN, marker, format, suppliersToObjects(arguments), null);
     }
 
     public void warn(Marker marker, String msg, Throwable t) {
@@ -248,19 +310,24 @@ public class EventRecodingLogger implements Logger {
         recordEvent(Level.ERROR, msg, null, null);
     }
 
+    public void error(Supplier<String> msg) {
+        recordEvent(Level.ERROR, msg.get(), null, null);
+    }
+
     public void error(String format, Object arg) {
         recordEvent(Level.ERROR, format, new Object[] { arg }, null);
-
     }
 
     public void error(String format, Object arg1, Object arg2) {
         recordEvent(Level.ERROR, format, new Object[] { arg1, arg2 }, null);
-
     }
 
     public void error(String format, Object... arguments) {
         recordEvent(Level.ERROR, format, arguments, null);
+    }
 
+    public void error(String format, Supplier<Object>... arguments) {
+        recordEvent(Level.ERROR, format, suppliersToObjects(arguments), null);
     }
 
     public void error(String msg, Throwable t) {
@@ -273,12 +340,14 @@ public class EventRecodingLogger implements Logger {
 
     public void error(Marker marker, String msg) {
         recordEvent(Level.ERROR, marker, msg, null, null);
+    }
 
+    public void error(Marker marker, Supplier<String> msg) {
+        recordEvent(Level.ERROR, marker, msg.get(), null, null);
     }
 
     public void error(Marker marker, String format, Object arg) {
         recordEvent(Level.ERROR, marker, format, new Object[] { arg }, null);
-
     }
 
     public void error(Marker marker, String format, Object arg1, Object arg2) {
@@ -287,6 +356,10 @@ public class EventRecodingLogger implements Logger {
 
     public void error(Marker marker, String format, Object... arguments) {
         recordEvent(Level.ERROR, marker, format, arguments, null);
+    }
+
+    public void error(Marker marker, String format, Supplier<Object>... arguments) {
+        recordEvent(Level.ERROR, marker, format, suppliersToObjects(arguments), null);
     }
 
     public void error(Marker marker, String msg, Throwable t) {

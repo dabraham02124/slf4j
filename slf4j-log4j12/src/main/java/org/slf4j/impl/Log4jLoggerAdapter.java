@@ -25,6 +25,7 @@
 package org.slf4j.impl;
 
 import static org.slf4j.event.EventConstants.NA_SUBST;
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
 
 import java.io.Serializable;
 
@@ -37,6 +38,7 @@ import org.slf4j.event.LoggingEvent;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
+import org.slf4j.jdk8classes.Supplier;
 import org.slf4j.spi.LocationAwareLogger;
 
 /**
@@ -114,6 +116,10 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
         logger.log(FQCN, traceCapable ? Level.TRACE : Level.DEBUG, msg, null);
     }
 
+    public void trace(Supplier<String> msg) {
+        logger.log(FQCN, traceCapable ? Level.TRACE : Level.DEBUG, msg.get(), null);
+    }
+
     /**
      * Log a message at level TRACE according to the specified format and
      * argument.
@@ -179,6 +185,13 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void trace(String format, Supplier<Object>... arguments) {
+        if (isTraceEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
+            logger.log(FQCN, traceCapable ? Level.TRACE : Level.DEBUG, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at level TRACE with an accompanying message.
      * 
@@ -208,6 +221,10 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
      */
     public void debug(String msg) {
         logger.log(FQCN, Level.DEBUG, msg, null);
+    }
+
+    public void debug(Supplier<String> msg) {
+        logger.log(FQCN, Level.DEBUG, msg.get(), null);
     }
 
     /**
@@ -274,6 +291,13 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void debug(String format, Supplier<Object>... arguments) {
+        if (logger.isDebugEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
+            logger.log(FQCN, Level.DEBUG, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at level DEBUG with an accompanying message.
      * 
@@ -303,6 +327,10 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
      */
     public void info(String msg) {
         logger.log(FQCN, Level.INFO, msg, null);
+    }
+
+    public void info(Supplier<String> msg) {
+        logger.log(FQCN, Level.INFO, msg.get(), null);
     }
 
     /**
@@ -369,6 +397,13 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void info(String format, Supplier<Object>... argArray) {
+        if (logger.isInfoEnabled()) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(argArray));
+            logger.log(FQCN, Level.INFO, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at the INFO level with an accompanying
      * message.
@@ -399,6 +434,10 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
      */
     public void warn(String msg) {
         logger.log(FQCN, Level.WARN, msg, null);
+    }
+
+    public void warn(Supplier<String> msg) {
+        logger.log(FQCN, Level.WARN, msg.get(), null);
     }
 
     /**
@@ -466,6 +505,13 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void warn(String format, Supplier<Object>... argArray) {
+        if (logger.isEnabledFor(Level.WARN)) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(argArray));
+            logger.log(FQCN, Level.WARN, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at the WARN level with an accompanying
      * message.
@@ -496,6 +542,10 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
      */
     public void error(String msg) {
         logger.log(FQCN, Level.ERROR, msg, null);
+    }
+
+    public void error(Supplier<String> msg) {
+        logger.log(FQCN, Level.ERROR, msg.get(), null);
     }
 
     /**
@@ -559,6 +609,13 @@ public final class Log4jLoggerAdapter extends MarkerIgnoringBase implements Loca
     public void error(String format, Object... argArray) {
         if (logger.isEnabledFor(Level.ERROR)) {
             FormattingTuple ft = MessageFormatter.arrayFormat(format, argArray);
+            logger.log(FQCN, Level.ERROR, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
+    public void error(String format, Supplier<Object>... argArray) {
+        if (logger.isEnabledFor(Level.ERROR)) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(argArray));
             logger.log(FQCN, Level.ERROR, ft.getMessage(), ft.getThrowable());
         }
     }

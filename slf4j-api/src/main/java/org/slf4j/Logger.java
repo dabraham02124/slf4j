@@ -25,6 +25,8 @@
 
 package org.slf4j;
 
+import org.slf4j.jdk8classes.Supplier;
+
 /**
  * The org.slf4j.Logger interface is the main user entry point of SLF4J API.
  * It is expected that logging takes place through concrete implementations
@@ -92,6 +94,8 @@ public interface Logger {
      * @since 1.4
      */
     public void trace(String msg);
+    
+    public void trace(Supplier<String> supplier);
 
     /**
      * Log a message at the TRACE level according to the specified format
@@ -135,6 +139,8 @@ public interface Logger {
      * @since 1.4
      */
     public void trace(String format, Object... arguments);
+    
+    public void trace(String format, Supplier<Object>... arguments);
 
     /**
      * Log an exception (throwable) at the TRACE level with an
@@ -166,6 +172,8 @@ public interface Logger {
      * @since 1.4
      */
     public void trace(Marker marker, String msg);
+    
+    public void trace(Marker marker, Supplier<String> supplier);
 
     /**
      * This method is similar to {@link #trace(String, Object)} method except that the
@@ -202,6 +210,8 @@ public interface Logger {
      * @since 1.4
      */
     public void trace(Marker marker, String format, Object... argArray);
+    
+    public void trace(Marker marker, String format, Supplier<Object>... argArray);
 
     /**
      * This method is similar to {@link #trace(String, Throwable)} method except that the
@@ -228,6 +238,8 @@ public interface Logger {
      * @param msg the message string to be logged
      */
     public void debug(String msg);
+    
+    public void debug(Supplier<String> supplier);
 
     /**
      * Log a message at the DEBUG level according to the specified format
@@ -269,6 +281,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void debug(String format, Object... arguments);
+    
+    public void debug(String format, Supplier<Object>... arguments);
 
     /**
      * Log an exception (throwable) at the DEBUG level with an
@@ -296,6 +310,8 @@ public interface Logger {
      * @param msg    the message string to be logged
      */
     public void debug(Marker marker, String msg);
+    
+    public void debug(Marker marker, Supplier<String> supplier);
 
     /**
      * This method is similar to {@link #debug(String, Object)} method except that the
@@ -329,6 +345,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void debug(Marker marker, String format, Object... arguments);
+    
+    public void debug(Marker marker, String format, Supplier<Object>... arguments);
 
     /**
      * This method is similar to {@link #debug(String, Throwable)} method except that the
@@ -354,6 +372,8 @@ public interface Logger {
      * @param msg the message string to be logged
      */
     public void info(String msg);
+    
+    public void info(Supplier<String> supplier);
 
     /**
      * Log a message at the INFO level according to the specified format
@@ -395,6 +415,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void info(String format, Object... arguments);
+    
+    public void info(String format, Supplier<Object>... arguments);
 
     /**
      * Log an exception (throwable) at the INFO level with an
@@ -421,6 +443,8 @@ public interface Logger {
      * @param msg    the message string to be logged
      */
     public void info(Marker marker, String msg);
+    
+    public void info(Marker marker, Supplier<String> supplier);
 
     /**
      * This method is similar to {@link #info(String, Object)} method except that the
@@ -454,6 +478,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void info(Marker marker, String format, Object... arguments);
+    
+    public void info(Marker marker, String format, Supplier<Object>... arguments);
 
     /**
      * This method is similar to {@link #info(String, Throwable)} method
@@ -479,6 +505,8 @@ public interface Logger {
      * @param msg the message string to be logged
      */
     public void warn(String msg);
+    
+    public void warn(Supplier<String> string);
 
     /**
      * Log a message at the WARN level according to the specified format
@@ -507,6 +535,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void warn(String format, Object... arguments);
+    
+    public void warn(String format, Supplier<Object>... arguments);
 
     /**
      * Log a message at the WARN level according to the specified format
@@ -547,6 +577,8 @@ public interface Logger {
      * @param msg    the message string to be logged
      */
     public void warn(Marker marker, String msg);
+    
+    public void warn(Marker marker, Supplier<String> supplier);
 
     /**
      * This method is similar to {@link #warn(String, Object)} method except that the
@@ -580,6 +612,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void warn(Marker marker, String format, Object... arguments);
+    
+    public void warn(Marker marker, String format, Supplier<Object>... arguments);
 
     /**
      * This method is similar to {@link #warn(String, Throwable)} method
@@ -605,6 +639,8 @@ public interface Logger {
      * @param msg the message string to be logged
      */
     public void error(String msg);
+    
+    public void error(Supplier<String> supplier);
 
     /**
      * Log a message at the ERROR level according to the specified format
@@ -646,6 +682,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void error(String format, Object... arguments);
+    
+    public void error(String format, Supplier<Object>... arguments);
 
     /**
      * Log an exception (throwable) at the ERROR level with an
@@ -673,6 +711,8 @@ public interface Logger {
      * @param msg    the message string to be logged
      */
     public void error(Marker marker, String msg);
+    
+    public void error(Marker marker, Supplier<String> supplier);
 
     /**
      * This method is similar to {@link #error(String, Object)} method except that the
@@ -706,6 +746,8 @@ public interface Logger {
      * @param arguments a list of 3 or more arguments
      */
     public void error(Marker marker, String format, Object... arguments);
+    
+    public void error(Marker marker, String format, Supplier<Object>... arguments);
 
     /**
      * This method is similar to {@link #error(String, Throwable)}

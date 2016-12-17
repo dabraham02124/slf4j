@@ -24,6 +24,8 @@
  */
 package org.slf4j.impl;
 
+import static org.slf4j.helpers.Jdk8Helper.suppliersToObjects;
+
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
@@ -34,6 +36,7 @@ import org.slf4j.event.LoggingEvent;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
+import org.slf4j.jdk8classes.Supplier;
 import org.slf4j.spi.LocationAwareLogger;
 
 /**
@@ -76,6 +79,12 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
     public void trace(String msg) {
         if (logger.isLoggable(Level.FINEST)) {
             log(SELF, Level.FINEST, msg, null);
+        }
+    }
+
+    public void trace(Supplier<String> msg) {
+        if (logger.isLoggable(Level.FINEST)) {
+            log(SELF, Level.FINEST, msg.get(), null);
         }
     }
 
@@ -144,6 +153,13 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void trace(String format, Supplier<Object>... argArray) {
+        if (logger.isLoggable(Level.FINEST)) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(argArray));
+            log(SELF, Level.FINEST, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at level FINEST with an accompanying message.
      * 
@@ -176,6 +192,12 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
     public void debug(String msg) {
         if (logger.isLoggable(Level.FINE)) {
             log(SELF, Level.FINE, msg, null);
+        }
+    }
+
+    public void debug(Supplier<String> msg) {
+        if (logger.isLoggable(Level.FINE)) {
+            log(SELF, Level.FINE, msg.get(), null);
         }
     }
 
@@ -243,6 +265,13 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void debug(String format, Supplier<Object>... argArray) {
+        if (logger.isLoggable(Level.FINE)) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(argArray));
+            log(SELF, Level.FINE, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at level FINE with an accompanying message.
      * 
@@ -275,6 +304,12 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
     public void info(String msg) {
         if (logger.isLoggable(Level.INFO)) {
             log(SELF, Level.INFO, msg, null);
+        }
+    }
+
+    public void info(Supplier<String> msg) {
+        if (logger.isLoggable(Level.INFO)) {
+            log(SELF, Level.INFO, msg.get(), null);
         }
     }
 
@@ -342,6 +377,13 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void info(String format, Supplier<Object>... argArray) {
+        if (logger.isLoggable(Level.INFO)) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(argArray));
+            log(SELF, Level.INFO, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at the INFO level with an accompanying
      * message.
@@ -376,6 +418,12 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
     public void warn(String msg) {
         if (logger.isLoggable(Level.WARNING)) {
             log(SELF, Level.WARNING, msg, null);
+        }
+    }
+
+    public void warn(Supplier<String> msg) {
+        if (logger.isLoggable(Level.WARNING)) {
+            log(SELF, Level.WARNING, msg.get(), null);
         }
     }
 
@@ -444,6 +492,13 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
         }
     }
 
+    public void warn(String format, Supplier<Object>... argArray) {
+        if (logger.isLoggable(Level.WARNING)) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(argArray));
+            log(SELF, Level.WARNING, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
     /**
      * Log an exception (throwable) at the WARNING level with an accompanying
      * message.
@@ -477,6 +532,12 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
     public void error(String msg) {
         if (logger.isLoggable(Level.SEVERE)) {
             log(SELF, Level.SEVERE, msg, null);
+        }
+    }
+
+    public void error(Supplier<String> msg) {
+        if (logger.isLoggable(Level.SEVERE)) {
+            log(SELF, Level.SEVERE, msg.get(), null);
         }
     }
 
@@ -541,6 +602,13 @@ public final class JDK14LoggerAdapter extends MarkerIgnoringBase implements Loca
     public void error(String format, Object... arguments) {
         if (logger.isLoggable(Level.SEVERE)) {
             FormattingTuple ft = MessageFormatter.arrayFormat(format, arguments);
+            log(SELF, Level.SEVERE, ft.getMessage(), ft.getThrowable());
+        }
+    }
+
+    public void error(String format, Supplier<Object>... arguments) {
+        if (logger.isLoggable(Level.SEVERE)) {
+            FormattingTuple ft = MessageFormatter.arrayFormat(format, suppliersToObjects(arguments));
             log(SELF, Level.SEVERE, ft.getMessage(), ft.getThrowable());
         }
     }

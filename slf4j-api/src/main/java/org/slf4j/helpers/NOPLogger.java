@@ -26,6 +26,7 @@ package org.slf4j.helpers;
 
 import org.slf4j.Logger;
 import org.slf4j.helpers.MarkerIgnoringBase;
+import org.slf4j.jdk8classes.Supplier;
 
 /**
  * A direct NOP (no operation) implementation of {@link Logger}.
@@ -68,6 +69,11 @@ public class NOPLogger extends MarkerIgnoringBase {
         // NOP
     }
 
+    /** A NOP implementation. */
+    final public void trace(Supplier<String> msg) {
+        // NOP
+    }
+
     /** A NOP implementation.  */
     final public void trace(String format, Object arg) {
         // NOP
@@ -80,6 +86,11 @@ public class NOPLogger extends MarkerIgnoringBase {
 
     /** A NOP implementation.  */
     public final void trace(String format, Object... argArray) {
+        // NOP
+    }
+
+    /** A NOP implementation.  */
+    public final void trace(String format, Supplier<Object>... argArray) {
         // NOP
     }
 
@@ -101,6 +112,11 @@ public class NOPLogger extends MarkerIgnoringBase {
         // NOP
     }
 
+    /** A NOP implementation. */
+    final public void debug(Supplier<String> msg) {
+        // NOP
+    }
+
     /** A NOP implementation.  */
     final public void debug(String format, Object arg) {
         // NOP
@@ -113,6 +129,11 @@ public class NOPLogger extends MarkerIgnoringBase {
 
     /** A NOP implementation.  */
     public final void debug(String format, Object... argArray) {
+        // NOP
+    }
+
+    /** A NOP implementation.  */
+    public final void debug(String format, Supplier<Object>... argArray) {
         // NOP
     }
 
@@ -136,6 +157,11 @@ public class NOPLogger extends MarkerIgnoringBase {
     }
 
     /** A NOP implementation. */
+    final public void info(Supplier<String> msg) {
+        // NOP
+    }
+
+    /** A NOP implementation. */
     final public void info(String format, Object arg1) {
         // NOP
     }
@@ -147,6 +173,11 @@ public class NOPLogger extends MarkerIgnoringBase {
 
     /** A NOP implementation.  */
     public final void info(String format, Object... argArray) {
+        // NOP
+    }
+
+    /** A NOP implementation.  */
+    public final void info(String format, Supplier<Object>... argArray) {
         // NOP
     }
 
@@ -169,6 +200,11 @@ public class NOPLogger extends MarkerIgnoringBase {
     }
 
     /** A NOP implementation. */
+    final public void warn(Supplier<String> msg) {
+        // NOP
+    }
+
+    /** A NOP implementation. */
     final public void warn(String format, Object arg1) {
         // NOP
     }
@@ -180,6 +216,11 @@ public class NOPLogger extends MarkerIgnoringBase {
 
     /** A NOP implementation.  */
     public final void warn(String format, Object... argArray) {
+        // NOP
+    }
+
+    /** A NOP implementation.  */
+    public final void warn(String format, Supplier<Object>... argArray) {
         // NOP
     }
 
@@ -199,6 +240,11 @@ public class NOPLogger extends MarkerIgnoringBase {
     }
 
     /** A NOP implementation. */
+    final public void error(Supplier<String> msg) {
+        // NOP
+    }
+
+    /** A NOP implementation. */
     final public void error(String format, Object arg1) {
         // NOP
     }
@@ -210,6 +256,11 @@ public class NOPLogger extends MarkerIgnoringBase {
 
     /** A NOP implementation.  */
     public final void error(String format, Object... argArray) {
+        // NOP
+    }
+
+    /** A NOP implementation.  */
+    public final void error(String format, Supplier<Object>... argArray) {
         // NOP
     }
 
